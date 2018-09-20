@@ -1,4 +1,4 @@
-FROM maven:3-jdk-8
+FROM registry-internal.cn-shanghai.aliyuncs.com/czy/node:cac6fe3d
 RUN git clone --depth 1 https://github.com/apache/incubator-dubbo-ops.git /source
 WORKDIR /source/dubbo-admin-frontend
 # install dependencies
@@ -14,7 +14,3 @@ RUN npm run build
 npm run build --report
   
   
-FROM tomcat:8.0-jre8
-RUN rm -rf /usr/local/tomcat/webapps/
-COPY --from=0 /source/dubbo-admin-backend/target/*.war /usr/local/tomcat/webapps/ROOT.war
-EXPOSE 8080
